@@ -1,4 +1,4 @@
 text
-aiogram
-aiohttp
-apscheduler
+aiogram>=2.25,<3.0
+aiohttp>=3.8,<3.10
+apscheduler>=3.10,<4.0
