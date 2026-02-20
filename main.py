@@ -66,20 +66,17 @@ async def fetch_proxy_list() -> List[Proxy]:
         logging.error(f"Ошибка загрузки списка прокси: {e}")
         return []
 
-# Функция проверки одного прокси
-async def check_proxy(proxy: Proxy, test_url='http://www.google.com', timeout=5) -> bool:
+async def check_proxy(proxy: Proxy, test_url='http://example.com', timeout=10) -> bool:
+    """Проверяет, работает ли прокси (просто пытается открыть страницу)."""
     try:
-        start = time.time()
         connector = aiohttp.TCPConnector(ssl=False)
         async with aiohttp.ClientSession(connector=connector) as session:
             proxy_url = f"{proxy.protocol}://{proxy.ip}:{proxy.port}"
             async with session.get(test_url, proxy=proxy_url, timeout=timeout) as response:
-                if response.status == 200:
-                    proxy.speed = time.time() - start
-                    return True
+                # Достаточно, что ответ получен (любой код)
+                return True
     except Exception:
-        pass
-    return False
+        return False
 
 # Функция обновления пула прокси (запускается по расписанию)
 async def update_proxy_pool():
