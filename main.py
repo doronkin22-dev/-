@@ -166,4 +166,4 @@ async def on_startup(_):
 
 if __name__ == '__main__':
     # Важно: drop_pending_updates=True сбрасывает старые обновления и предотвращает конфликт экземпляров
-    executor.start_polling(dp, skip_updates=True, on_startup=on_startup, drop_pending_updates=True)
+    executor.start_polling(dp, skip_updates=True, on_startup=on_startup)
